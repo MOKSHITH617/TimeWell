@@ -1,0 +1,240 @@
+# Implementation Plan: MERN Manufacturer Showcase, Configurator & Lead Platform
+
+Build a premium, production-ready MERN Stack application for **TimeWell Mattress Factory**, preserving the existing design language (deep navy and gold accents, clean spacious typography, floating WhatsApp, and interactive configurators) while adding dynamic backend administration, lead tracking, and SEO utilities.
+
+---
+
+## Architecture Overview
+
+```mermaid
+graph TD
+    Client[React Frontend - TailwindCSS]
+    Server[Node/Express Backend]
+    DB[(MongoDB Atlas)]
+    Cloudinary[(Cloudinary API)]
+    WhatsApp[WhatsApp Web/App API]
+    
+    Client -->|API Requests / JWT| Server
+    Client -->|Submit Inquiry| Server
+    Client -->|Auto-Redirect| WhatsApp
+    Server -->|Read/Write| DB
+    Server -->|Image Upload| Cloudinary
+```
+
+### Folder Structure
+We will organize the application as a mono-repo inside the workspace `c:\Users\moksh\OneDrive\Desktop\TimeWell`:
+
+```
+TimeWell/
+├── backend/
+│   ├── config/             # db.js, cloudinary.js
+│   ├── controllers/        # auth, products, configs, leads, testimonials, homepage
+│   ├── middleware/         # authMiddleware.js, uploadMiddleware.js
+│   ├── models/             # User, Product, MattressConfig, SofaConfig, Lead, Testimonial, HomepageContent
+│   ├── routes/             # API routing
+│   ├── utils/              # sitemap.js, seoutils.js
+│   ├── .env.example
+│   ├── server.js
+│   └── package.json
+├── frontend/
+│   ├── public/             # assets, images, static favicon
+│   ├── src/
+│   │   ├── components/     # Configurator, ProductCard, MetaTags, Navbar, Footer
+│   │   ├── context/        # AuthContext
+│   │   ├── hooks/          # useDocumentMetadata
+│   │   ├── layouts/        # MainLayout, AdminLayout
+│   │   ├── pages/          # Home, Mattresses, MattressDetail, Sofas, SofaDetail, Manufacturing, Contact, Admin
+│   │   ├── services/       # api.js
+│   │   ├── utils/          # helpers.js (formatter, multipliers)
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── tailwind.config.js
+│   ├── vite.config.js
+│   └── package.json
+```
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Admin Initial Credentials**
+> We will seed a default admin account:
+> - **Email**: `admin@example.com`
+> - **Password**: `Admin@123` (hashed with `bcrypt`)
+>
+> You can update these credentials directly from the Admin Profile settings inside the dashboard.
+
+> [!NOTE]
+> **Image Upload & Cloudinary Setup**
+> The backend will support multiple image uploads using Cloudinary. If Cloudinary credentials are not configured in `.env`, the system will gracefully fall back to storing uploads locally in `/uploads` or serving them as placeholder static assets so that development and deployment are not blocked.
+
+---
+
+## Proposed Changes
+
+### Database Schemas
+
+#### 1. `Product` Model
+Stores mattress and sofa metadata.
+- `name` (String, required)
+- `slug` (String, unique, required)
+- `category` (String: `'mattress'` or `'sofa'`)
+- `description` (String)
+- `shortDescription` (String)
+- `basePrice` (Number, default base rate)
+- `retailMultiplier` (Number, default: `2.0` - used to display comparison showroom price)
+- `images` ([String], Cloudinary URLs)
+- `isAvailable` (Boolean, default: `true`)
+- `isFeatured` (Boolean, default: `false`)
+- `specifications` (Map of Strings, e.g., Warranty, Firmness)
+- `benefits` ([String])
+- `ratings` (Number, default: `4.8`)
+- `reviewsCount` (Number, default: `50`)
+- `mattressCoreType` (String: `'ortho' | 'latex' | 'spring' | 'dual' | 'coir'`, optional)
+- `sofaCategory` (String: `'l-shape' | 'recliner' | '2-seater' | '3-seater' | 'corner' | 'custom'`, optional)
+
+#### 2. `MattressConfig` Model
+Dynamic options and pricing multipliers for mattresses.
+- `cores`: `[{ type: String, name: String, basePrice: Number, desc: String, layers: [{ name: String, height: String, color: String }] }]`
+- `sizes`: `[{ name: String, multiplier: Number }]`
+- `thicknesses`: `[{ name: String, multiplier: Number }]`
+
+#### 3. `SofaConfig` Model
+Dynamic options and pricing multipliers for sofas.
+- `sofaTypes`: `[{ name: String, multiplier: Number }]`
+- `materials`: `[{ name: String, priceModifier: Number }]`
+- `fabrics`: `[{ name: String, priceModifier: Number }]`
+- `colors`: `[{ name: String, colorCode: String }]`
+- `seatingCapacities`: `[{ capacity: Number, multiplier: Number }]`
+
+#### 4. `Lead` Model
+Captures client details and custom configuration details.
+- `name` (String, required)
+- `phone` (String, required)
+- `email` (String, required)
+- `productName` (String, required)
+- `category` (String, required)
+- `configuration` (Object, stores size, thickness, material, etc.)
+- `quotedPrice` (Number, required)
+- `message` (String)
+- `status` (String, default: `'pending'`)
+- `createdAt` (Date, default: `Date.now`)
+
+#### 5. `Testimonial` Model
+- `name` (String)
+- `avatar` (String)
+- `rating` (Number)
+- `dateText` (String, e.g., "2 weeks ago")
+- `text` (String)
+
+#### 6. `HomepageContent` Model
+- `heroTitle` (String)
+- `heroSubtitle` (String)
+- `heroSubheading` (String)
+- `ctaTitle` (String)
+- `ctaSubtitle` (String)
+
+---
+
+### Backend API Endpoints
+
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| **POST** | `/api/auth/login` | Public | Authenticate admin, returns JWT |
+| **PUT** | `/api/auth/update` | Admin | Change admin credentials |
+| **GET** | `/api/products` | Public | Fetch all products (with query filter) |
+| **GET** | `/api/products/:slug` | Public | Fetch single product by slug |
+| **POST** | `/api/products` | Admin | Create new product (with Cloudinary uploads) |
+| **PUT** | `/api/products/:id` | Admin | Edit existing product details |
+| **DELETE**| `/api/products/:id` | Admin | Delete product |
+| **GET** | `/api/configs/mattress`| Public | Fetch mattress configuration and pricing multipliers |
+| **PUT** | `/api/configs/mattress`| Admin | Update mattress configuration rules |
+| **GET** | `/api/configs/sofa` | Public | Fetch sofa configuration rules |
+| **PUT** | `/api/configs/sofa` | Admin | Update sofa configuration rules |
+| **POST** | `/api/leads` | Public | Create a new lead |
+| **GET** | `/api/leads` | Admin | Fetch and search leads list |
+| **DELETE**| `/api/leads/:id` | Admin | Delete lead record |
+| **GET/POST/PUT/DELETE** | `/api/testimonials` | Mixed | Testimonial CRUD |
+| **GET/PUT** | `/api/homepage` | Mixed | Hero, banners, and featured config |
+| **GET** | `/sitemap.xml` | Public | Dynamically generated sitemap of all routes & products |
+
+---
+
+### Dynamic Pricing Algorithms
+
+#### Mattress Pricing
+$$\text{Quoted Price} = \text{Base Price} \times \text{Size Multiplier} \times \text{Thickness Multiplier}$$
+$$\text{Showroom Price} = \text{Quoted Price} \times \text{Retail Multiplier}$$
+
+#### Sofa Pricing
+$$\text{Quoted Price} = (\text{Base Price} \times \text{Type Multiplier} \times \text{Seating Multiplier}) + \text{Material Modifier} + \text{Fabric Modifier}$$
+$$\text{Showroom Price} = \text{Quoted Price} \times \text{Retail Multiplier}$$
+
+---
+
+### Lead Management and WhatsApp Redirection
+Upon submitting a quote request, configurator booking, or general inquiry:
+1. React initiates a **POST** to `/api/leads` to persist the record.
+2. The response returns the saved lead details.
+3. React format-encodes the lead data into a WhatsApp text block and triggers:
+   `window.open("https://wa.me/{WHATSAPP_NUMBER}?text={encodedText}", "_blank")`.
+
+**Formatted Message Structure:**
+```
+Hello! I am interested in ordering:
+- Product: [Product Name]
+- Configuration: [Queen Size (78" x 60"), 8-inch Thickness]
+- Factory Direct Price: ₹12,500
+- Name: [Customer Name]
+- Phone: [Customer Phone]
+- Message: [Notes]
+Please guide me on delivery timelines and payment methods.
+```
+
+---
+
+### SEO Configuration & Local Business Markup
+
+We will design a custom SEO engine in React using a `<MetaTags>` component that updates:
+- `<title>`
+- Meta Description & Keywords
+- Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`)
+- JSON-LD Structured Data for Products and Local Business.
+
+#### Product Structured Data Example:
+```json
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Ortho-Memory Foam Mattress",
+  "image": "https://cloudinary.com/ortho.png",
+  "description": "High spine support mattress",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "INR",
+    "price": "6500",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "LocalBusiness",
+      "name": "TimeWell Mattress Factory"
+    }
+  }
+}
+```
+
+---
+
+## Verification Plan
+
+### Automated Verification
+We will verify API health and routes using a curl/fetch script:
+- `npm run test:api` to invoke mock routes for authentication, lead creations, sitemap fetches, and configurations.
+- Verify JWT route guards (ensure `/api/leads` is inaccessible without credentials).
+
+### Manual Verification
+1. **Configurator Testing**: Verify core/materials select switches, adjust sizing/thickness sliders, and check that layering visualizations change dimensions and colors dynamically.
+2. **Pricing Math**: Check values for each mattress core against the pricing formula to verify output matches current factory rates.
+3. **Responsive UI Review**: Render pages in the browser and test mobile views (responsive grid columns, hamburger menu, overlay cards).
+4. **Admin Panel Checks**: Login as `admin@example.com` and verify creation, edit, deletion of products, configurations, and testimonials.
