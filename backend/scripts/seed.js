@@ -14,7 +14,7 @@ const HomepageContent = require('../models/HomepageContent');
 
 const seedData = async () => {
   try {
-    const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/timewell';
+    const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/sleepora';
     console.log(`Seeding DB: Connecting to ${dbUri}...`);
     
     await mongoose.connect(dbUri);
@@ -161,214 +161,214 @@ const seedData = async () => {
     // 4. Seed Mattress Catalogue Products
     const mattresses = [
       {
-        name: 'Ortho-Memory Foam',
-        slug: 'ortho-memory-foam-mattress',
+        name: 'OrthoRest Premium Memory Foam Mattress',
+        slug: 'orthorest-premium-memory-foam-mattress',
         category: 'mattress',
-        description: 'Features pressure-relieving memory foam combined with high density base foam. Designed specifically to alleviate back pain and spine stiffness. This orthopaedic mattress aligns your spine perfectly while dispersing heat via breathable quilting.',
-        shortDescription: 'Ideal support for spine alignment and back pain relief.',
-        basePrice: 6500,
-        retailMultiplier: 2.0,
-        images: ['/images/ortho_mattress.png'],
+        description: 'Designed for better spinal alignment and ultimate posture support. High density pressure relief memory foam.',
+        shortDescription: 'Featured premium orthopaedic memory foam mattress.',
+        basePrice: 28999,
+        retailMultiplier: 1.0,
+        images: [
+          '/images/ortho_mattress.png',
+          '/images/mattress_layers_detail.png',
+          '/images/mattress_hero.png'
+        ],
         isAvailable: true,
         isFeatured: true,
         specifications: {
-          'Firmness': 'Medium-Firm',
-          'Warranty': '10 Years',
-          'Thickness Options': '5", 6", 8"',
-          'Primary Material': 'Memory Foam & HR Foam'
+          'Warranty': '10 Year Warranty',
+          'Comfort': 'Orthopaedic Support',
+          'Material': 'Premium Memory Foam',
+          'Badge': 'FEATURED'
         },
         benefits: [
-          'Orthopaedic spine alignment support',
-          'Motion isolation for zero-disturbance sleep',
-          'Pressure point relief for joints',
-          'Breathable outer cover to keep mattress cool'
+          'Orthopaedic Support: Designed for better spinal alignment',
+          'Premium Memory Foam: High density foam for pressure relief',
+          '10 Year Warranty: Long lasting comfort & durability'
+        ],
+        ratings: 4.9,
+        reviewsCount: 154,
+        mattressCoreType: 'ortho'
+      },
+      {
+        name: 'CloudNest Memory Foam',
+        slug: 'cloudnest-memory-foam-mattress',
+        category: 'mattress',
+        description: 'Plush and contouring memory foam designed to provide zero partner disturbance.',
+        shortDescription: 'Plush contouring memory foam.',
+        basePrice: 24999,
+        retailMultiplier: 1.0,
+        images: [
+          '/images/ortho_mattress.png',
+          '/images/mattress_layers_detail.png',
+          '/images/workers_crafting.png'
+        ],
+        isAvailable: true,
+        isFeatured: false,
+        specifications: {
+          'Warranty': '10 Year Warranty',
+          'Comfort': 'Medium Firm',
+          'Material': 'Memory Foam',
+          'Badge': 'BEST SELLER'
+        },
+        benefits: [
+          'Contouring foam padding',
+          'Zero partner disturbance',
+          'Breathable cover quilting'
         ],
         ratings: 4.9,
         reviewsCount: 124,
         mattressCoreType: 'ortho'
       },
       {
-        name: 'Premium Natural Latex',
-        slug: 'premium-natural-latex-mattress',
+        name: 'BackCare Ortho Support',
+        slug: 'backcare-ortho-support',
         category: 'mattress',
-        description: 'Crafted from eco-friendly botanical latex. Offers an elastic bounce back, customized breathability, and natural allergen protection. Perfect for sleepers looking for non-toxic, chemical-free sleep materials with deep, resilient comfort.',
-        shortDescription: 'Eco-friendly hypoallergenic natural rubber pin-core latex.',
-        basePrice: 11500,
-        retailMultiplier: 1.9,
-        images: ['/images/latex_mattress.png'],
+        description: 'Extra firm core built specifically for back support and relief from chronic spine stiffness.',
+        shortDescription: 'Extra firm orthopaedic back care.',
+        basePrice: 26999,
+        retailMultiplier: 1.0,
+        images: [
+          '/images/coir_mattress.png',
+          '/images/mattress_layers_detail.png',
+          '/images/factory_floor.png'
+        ],
         isAvailable: true,
-        isFeatured: true,
+        isFeatured: false,
         specifications: {
-          'Firmness': 'Balanced Medium',
-          'Warranty': '12 Years',
-          'Thickness Options': '5", 6", 8"',
-          'Primary Material': '100% Natural Organic Latex'
+          'Warranty': '10 Year Warranty',
+          'Comfort': 'Firm Support',
+          'Material': 'Orthopaedic',
+          'Badge': 'PREMIUM'
         },
         benefits: [
-          'Organic natural botanical pin-core latex',
-          'Inherently dust-mite resistant and hypoallergenic',
-          'Exceptional bouncy support without sink',
-          'Keeps mattress highly aerated and temperature-regulated'
+          'Extra firm support layers',
+          'Posture correcting block',
+          'High density core foam'
         ],
         ratings: 4.8,
         reviewsCount: 86,
-        mattressCoreType: 'latex'
+        mattressCoreType: 'ortho'
       },
       {
-        name: 'Luxury Pocket Spring',
-        slug: 'luxury-pocket-spring-mattress',
+        name: 'DreamRest Hybrid',
+        slug: 'dreamrest-hybrid',
         category: 'mattress',
-        description: 'Individual coil units pocketed inside resilient fabric wrappers. Features high comfort layers on top to provide a luxury hotel feeling at home. The pocketed springs compress individually, providing targeted weight distribution.',
-        shortDescription: 'Zero motion transfer pocket spring system with plush comfort.',
-        basePrice: 9000,
-        retailMultiplier: 2.1,
-        images: ['/images/pocket_spring.png'],
+        description: 'Combines contouring comfort foam with independently responsive pocket springs.',
+        shortDescription: 'Plush pocket spring and foam hybrid.',
+        basePrice: 32999,
+        retailMultiplier: 1.0,
+        images: [
+          '/images/pocket_spring.png',
+          '/images/mattress_layers_detail.png',
+          '/images/mattress_hero.png'
+        ],
         isAvailable: true,
-        isFeatured: true,
+        isFeatured: false,
         specifications: {
-          'Firmness': 'Soft / Plush',
-          'Warranty': '8 Years',
-          'Thickness Options': '6", 8", 10"',
-          'Primary Material': 'Pocket Springs & Pillow-Top Foam'
+          'Warranty': '10 Year Warranty',
+          'Comfort': 'Medium Firm',
+          'Material': 'Hybrid',
+          'Badge': 'NEW ARRIVAL'
         },
         benefits: [
-          'Zero motion transfer - partners sleep undisturbed',
-          'Plush pillow-top comfort layers',
-          'High air circulation through coil chambers',
-          'Responsive edge support framing'
+          'Pocketed spring alignment',
+          'Responsive bounce feedback',
+          'Airflow ventilation channels'
         ],
         ratings: 4.9,
         reviewsCount: 98,
-        mattressCoreType: 'spring'
+        mattressCoreType: 'hybrid'
       },
       {
-        name: 'Dual Comfort (Hard/Soft)',
-        slug: 'dual-comfort-reversible-mattress',
+        name: 'Latex Luxe Natural',
+        slug: 'latex-luxe-natural',
         category: 'mattress',
-        description: 'Reversible usage design. Sleep on one side for medium-firm orthopedic support, or flip it over to enjoy a cloud-soft cushioning feel. Highly versatile and adaptable for changing seasonal preferences.',
-        shortDescription: 'Reversible dual-sided mattress (medium-firm & soft).',
-        basePrice: 5000,
-        retailMultiplier: 2.0,
-        images: ['/images/latex_mattress.png'],
+        description: 'Eco-friendly, chemical-free sleep materials crafted from natural organic rubber latex.',
+        shortDescription: '100% natural organic pin-core latex.',
+        basePrice: 29999,
+        retailMultiplier: 1.0,
+        images: [
+          '/images/latex_mattress.png',
+          '/images/mattress_layers_detail.png',
+          '/images/workers_crafting.png'
+        ],
         isAvailable: true,
         isFeatured: false,
         specifications: {
-          'Firmness': 'Dual (Soft side / Firm side)',
-          'Warranty': '7 Years',
-          'Thickness Options': '5", 6", 8"',
-          'Primary Material': 'Dual density HR & Soft PU Foam'
+          'Warranty': '10 Year Warranty',
+          'Comfort': 'Medium Firm',
+          'Material': 'Natural Latex',
+          'Badge': ''
         },
         benefits: [
-          'Versatile dual comfort sleeping options',
-          'Lightweight and easy to flip',
-          'Premium dual-tone aesthetic cover',
-          'Extremely cost-effective direct pricing'
+          'Allergen protection layer',
+          'Elastic bounce support',
+          'Temperature regulation structure'
         ],
         ratings: 4.7,
         reviewsCount: 72,
-        mattressCoreType: 'dual'
+        mattressCoreType: 'latex'
       },
       {
-        name: 'Classic Coir Mattress',
-        slug: 'classic-coir-mattress',
+        name: 'SpineAlign Pocket Spring',
+        slug: 'spinealign-pocket-spring',
         category: 'mattress',
-        description: 'Made from densely packed rubberized coconut coir fibers. Provides a solid, extra-firm sleeping surface that remains cool and keeps the spine aligned. Naturally ventilated structure ideal for hot tropical environments.',
-        shortDescription: 'Firm natural rubberised coir with breathable cooling.',
-        basePrice: 4200,
-        retailMultiplier: 2.0,
-        images: ['/images/coir_mattress.png'],
-        isAvailable: true,
-        isFeatured: false,
-        specifications: {
-          'Firmness': 'Extra Firm',
-          'Warranty': '5 Years',
-          'Thickness Options': '4", 5"',
-          'Primary Material': 'Coconut Coir & PU Foam'
-        },
-        benefits: [
-          'Eco-friendly natural coconut coir block core',
-          'Extra-firm orthopaedic support for posture correction',
-          'Naturally cooling organic fibers',
-          'Anti-sag border mesh'
+        description: 'Individual spring coils that isolate movement and support the lower lumbar region.',
+        shortDescription: 'Lumbar support pocket coil mattress.',
+        basePrice: 23999,
+        retailMultiplier: 1.0,
+        images: [
+          '/images/pocket_spring.png',
+          '/images/mattress_layers_detail.png',
+          '/images/factory_floor.png'
         ],
-        ratings: 4.6,
-        reviewsCount: 64,
-        mattressCoreType: 'coir'
-      },
-      {
-        name: 'Hybrid Ortho Spring',
-        slug: 'hybrid-ortho-spring-mattress',
-        category: 'mattress',
-        description: 'A hybrid orthopedic solution that blends high-density contouring memory foam with pocket coil support.',
-        shortDescription: 'Hybrid pocket coil orthopedic support system.',
-        basePrice: 9500,
-        retailMultiplier: 2.0,
-        images: ['/images/pocket_spring.png'],
         isAvailable: true,
         isFeatured: false,
         specifications: {
-          'Firmness': 'Medium-Firm',
-          'Warranty': '10 Years',
-          'Thickness Options': '6", 8", 10"',
-          'Primary Material': 'Memory Foam & Pocket Springs'
+          'Warranty': '10 Year Warranty',
+          'Comfort': 'Firm Support',
+          'Material': 'Pocket Spring',
+          'Badge': ''
         },
         benefits: [
-          'Orthopaedic posture alignment',
-          'Independent pocket coils'
+          'Lumbar support coils',
+          'Zero motion transfer springs',
+          'Steel border framing edges'
         ],
         ratings: 4.8,
         reviewsCount: 41,
         mattressCoreType: 'spring'
       },
       {
-        name: 'Latex Comfort Lite',
-        slug: 'latex-comfort-lite-mattress',
+        name: 'Ultra Plush Hotel Collection',
+        slug: 'ultra-plush-hotel-collection',
         category: 'mattress',
-        description: 'Eco-friendly natural botanical latex layer combined with a transition foam support layer.',
-        shortDescription: 'Eco-friendly resilient natural latex mattress.',
-        basePrice: 10500,
-        retailMultiplier: 1.9,
-        images: ['/images/latex_mattress.png'],
+        description: 'Brings the five-star luxury hotel feel home with a deep cushioning plush pillow-top cover.',
+        shortDescription: 'Plush pillow-top luxury mattress.',
+        basePrice: 27999,
+        retailMultiplier: 1.0,
+        images: [
+          '/images/mattress_hotel_luxury.png',
+          '/images/coir_mattress.png',
+          '/images/mattress_hero.png'
+        ],
         isAvailable: true,
         isFeatured: false,
         specifications: {
-          'Firmness': 'Medium',
-          'Warranty': '8 Years',
-          'Thickness Options': '5", 6"',
-          'Primary Material': 'Natural Latex & HR Foam'
+          'Warranty': '10 Year Warranty',
+          'Comfort': 'Plush Comfort',
+          'Material': 'Cooling Foam',
+          'Badge': ''
         },
         benefits: [
-          'Allergen protection',
-          'Temperature regulation'
+          'Pillow-top cooling layers',
+          'Deep responsive support',
+          'Double tempered coil coils'
         ],
-        ratings: 4.7,
+        ratings: 4.9,
         reviewsCount: 33,
-        mattressCoreType: 'latex'
-      },
-      {
-        name: 'Classic Dual Comfort Plus',
-        slug: 'classic-dual-comfort-plus-mattress',
-        category: 'mattress',
-        description: 'Reversible dual comfort mattress with an extra high density orthopedic support foam base.',
-        shortDescription: 'Premium dual-density reversible mattress.',
-        basePrice: 5800,
-        retailMultiplier: 2.0,
-        images: ['/images/ortho_mattress.png'],
-        isAvailable: true,
-        isFeatured: false,
-        specifications: {
-          'Firmness': 'Dual Firmness',
-          'Warranty': '7 Years',
-          'Thickness Options': '5", 6", 8"',
-          'Primary Material': 'High Resilience Foam'
-        },
-        benefits: [
-          'Reversible usage options',
-          'Firm support'
-        ],
-        ratings: 4.6,
-        reviewsCount: 19,
-        mattressCoreType: 'dual'
+        mattressCoreType: 'hotel'
       }
     ];
 
@@ -379,13 +379,13 @@ const seedData = async () => {
     const sofas = [
       {
         name: 'Royal Sectional Sofa',
-        slug: 'royal- sectional-sofa',
+        slug: 'royal-sectional-sofa',
         category: 'sofa',
         description: 'Spacious and premium L-shape corner sectional sofa. Perfect for modern living rooms, providing maximum comfort and relaxation with high-resilience foam padding and solid seasoned sal wood inner framing.',
         shortDescription: 'Premium L-shape sectional customizable for any lounge.',
         basePrice: 28000,
         retailMultiplier: 1.8,
-        images: ['/images/factory_floor.png'],
+        images: ['/images/sofa_royal_sectional.png'],
         isAvailable: true,
         isFeatured: true,
         specifications: {
@@ -412,7 +412,7 @@ const seedData = async () => {
         shortDescription: 'Premium single or multi-seater theater reclining sofa.',
         basePrice: 18000,
         retailMultiplier: 2.0,
-        images: ['/images/workers_crafting.png'],
+        images: ['/images/sofa_plush_recliner.png'],
         isAvailable: true,
         isFeatured: true,
         specifications: {
@@ -439,7 +439,7 @@ const seedData = async () => {
         shortDescription: 'Sleek, minimalist 2-seater ideal for small spaces.',
         basePrice: 12500,
         retailMultiplier: 1.9,
-        images: ['/images/latex_mattress.png'],
+        images: ['/images/sofa_compact_studio.png'],
         isAvailable: true,
         isFeatured: false,
         specifications: {
@@ -466,7 +466,7 @@ const seedData = async () => {
         shortDescription: 'Standard spacious 3-seater sofa for family homes.',
         basePrice: 16500,
         retailMultiplier: 2.0,
-        images: ['/images/ortho_mattress.png'],
+        images: ['/images/sofa_classic_3seater.png'],
         isAvailable: true,
         isFeatured: false,
         specifications: {
@@ -493,7 +493,7 @@ const seedData = async () => {
         shortDescription: 'Classic Chesterfield sofa with deep tufted velvet.',
         basePrice: 24500,
         retailMultiplier: 1.9,
-        images: ['/images/factory_floor.png'],
+        images: ['/images/sofa_chesterfield_velvet.png'],
         isAvailable: true,
         isFeatured: false,
         specifications: {
@@ -518,7 +518,7 @@ const seedData = async () => {
         shortDescription: 'Modular sectional sofa layouts for modern lounges.',
         basePrice: 32000,
         retailMultiplier: 1.8,
-        images: ['/images/workers_crafting.png'],
+        images: ['/images/sofa_modular_corner.png'],
         isAvailable: true,
         isFeatured: false,
         specifications: {
@@ -542,7 +542,7 @@ const seedData = async () => {
         shortDescription: 'Single luxury recliner for home theaters.',
         basePrice: 19500,
         retailMultiplier: 2.0,
-        images: ['/images/latex_mattress.png'],
+        images: ['/images/sofa_theater_recliner.png'],
         isAvailable: true,
         isFeatured: false,
         specifications: {
@@ -571,7 +571,7 @@ const seedData = async () => {
         rating: 5,
         dateText: '2 weeks ago',
         location: 'New Delhi',
-        text: 'Ordered 2 custom size ortho mattresses for my parent\'s wooden beds. Showroom prices were around 24,000 for size specifications. TimeWell delivered perfect fits for ₹11,500 each. Quality of memory foam is amazing. Highly recommended!'
+        text: 'Ordered 2 custom size ortho mattresses for my parent\'s wooden beds. Showroom prices were around 24,000 for size specifications. Sleepora delivered perfect fits for ₹11,500 each. Quality of memory foam is amazing. Highly recommended!'
       },
       {
         name: 'Neha Sharma',
@@ -604,9 +604,9 @@ const seedData = async () => {
 
     // 7. Seed Homepage content headlines and descriptions
     await HomepageContent.create({
-      heroSubheading: 'Direct Manufacturer Advantage',
-      heroTitle: 'Deep Sleep. Direct From The Factory.',
-      heroSubtitle: 'Why pay 2x at retail showrooms? We manufacture high-end orthopaedic, organic latex, and hybrid spring mattresses tailored to your exact measurements. Better sleep, handcrafted for you.',
+      heroSubheading: 'Sleepora',
+      heroTitle: 'Perfect Sleep, Perfect Life.',
+      heroSubtitle: 'Premium mattresses and handcrafted sofas, engineered for comfort and built to last.',
       ctaTitle: 'Ready for Better Sleep?',
       ctaSubtitle: 'Talk directly with the factory owner on WhatsApp to get custom sizes and the best prices instantly.'
     });

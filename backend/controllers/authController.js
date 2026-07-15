@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const generateToken = (id) => {
-  const secret = process.env.JWT_SECRET || 'timewell_jwt_secret_key_2026_xYz';
+  const secret = process.env.JWT_SECRET || 'sleepora_jwt_secret_key_2026_xYz';
   return jwt.sign({ id }, secret, {
     expiresIn: '30d'
   });

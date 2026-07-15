@@ -21,7 +21,7 @@ if (isCloudinaryConfigured) {
   storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: 'timewell_products',
+      folder: 'sleepora_products',
       allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
       transformation: [{ width: 1000, height: 750, crop: 'limit' }]
     }

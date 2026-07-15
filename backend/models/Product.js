@@ -64,7 +64,7 @@ const ProductSchema = new mongoose.Schema({
   // Mattress specific attributes
   mattressCoreType: {
     type: String,
-    enum: ['ortho', 'latex', 'spring', 'dual', 'coir', 'none'],
+    enum: ['ortho', 'latex', 'spring', 'dual', 'coir', 'hybrid', 'hotel', 'none'],
     default: 'none'
   },
   // Sofa specific attributes

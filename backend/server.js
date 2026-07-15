@@ -113,7 +113,7 @@ app.get('/sitemap.xml', async (req, res) => {
 
 // Root route health check
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to TimeWell Mattress and Sofa Factory API' });
+  res.json({ message: 'Welcome to Sleepora Mattress and Sofa Factory API' });
 });
 
 // Error handling middleware

@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const HomepageContentSchema = new mongoose.Schema({
   heroSubheading: {
     type: String,
-    default: 'Direct Manufacturer Advantage'
+    default: 'Sleepora'
   },
   heroTitle: {
     type: String,
-    default: 'Deep Sleep. Direct From The Factory.'
+    default: 'Perfect Sleep, Perfect Life.'
   },
   heroSubtitle: {
     type: String,
-    default: 'Why pay 2x at retail showrooms? We manufacture high-end orthopaedic, organic latex, and hybrid spring mattresses tailored to your exact measurements. Better sleep, handcrafted for you.'
+    default: 'Premium mattresses and handcrafted sofas, engineered for comfort and built to last.'
   },
   ctaTitle: {
     type: String,

@@ -1,7 +1,7 @@
 {
-  "name": "timewell-backend",
+  "name": "sleepora-backend",
   "version": "1.0.0",
-  "description": "TimeWell Mattress and Sofa Manufacturing Backend",
+  "description": "Sleepora Mattress and Sofa Manufacturing Backend",
   "main": "server.js",
   "type": "commonjs",
   "scripts": {

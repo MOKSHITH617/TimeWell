@@ -6,7 +6,7 @@ const { protect } = require('../middleware/authMiddleware');
 // @desc    Upload multiple images (max 5)
 // @route   POST /api/upload
 // @access  Private (Admin)
-router.post('/', protect, upload.array('images', 5), (req, res) => {
+router.post('/', protect, upload.array('images', 6), (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ success: false, message: 'Please upload files' });
